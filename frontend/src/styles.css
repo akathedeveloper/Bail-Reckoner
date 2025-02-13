@@ -52,31 +52,38 @@ p {
   color: #666;
 }
 
-.form-group {
-  margin-bottom: 1rem;
+.dashboard-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-.form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
+.dashboard-section {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.form-group input {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.dashboard-section h2 {
+  margin-top: 0;
+  color: #333;
 }
 
-button {
+.dashboard-section p {
+  color: #666;
+}
+
+.dashboard-link {
+  display: inline-block;
+  margin-top: 1rem;
   padding: 0.75rem 1.5rem;
   background-color: #333;
   color: #fff;
-  border: none;
+  text-decoration: none;
   border-radius: 4px;
-  cursor: pointer;
 }
 
-button:hover {
+.dashboard-link:hover {
   background-color: #555;
 }
