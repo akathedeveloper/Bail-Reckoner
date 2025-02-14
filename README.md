@@ -1,6 +1,6 @@
 # Bail-Reckoner
 
-##🚀 Features
+## 🚀 Features
 ### 🔹 Core Functionality
 
 - AI-Based Risk Assessment – Calculates bail eligibility using ML models.
