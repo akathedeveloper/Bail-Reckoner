@@ -1,16 +1,17 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../components/auth";
-import "../assets/css/Navbar.css"; // Import the CSS file
+import "../assets/css/Navbar.css";
+import logo from "../assets/images/ai-ethic.png"; // Adjust the path if needed
 
 const Navbar = () => {
   const { logout } = useAuthStore();
   const navigate = useNavigate();
 
   const handleLogout = (e) => {
-    e.preventDefault(); // Prevent default link behavior
-    logout(); // Clear token and user data
-    navigate("/"); // Navigate to the desired route (e.g., login page)
+    e.preventDefault();
+    logout();
+    navigate("/");
   };
 
   return (
@@ -18,6 +19,7 @@ const Navbar = () => {
       <div className="container">
         <div className="logo">
           <Link to="/home" className="logo-link">
+            <img src={logo} alt="Logo" className="logo-image" />
             Bail Reckoner
           </Link>
         </div>
@@ -39,10 +41,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link
-                to="#"
-                onClick={handleLogout}
-                className="nav-link logout-button">
+              <Link to="#" onClick={handleLogout} className="nav-link logout-button">
                 Logout
               </Link>
             </li>

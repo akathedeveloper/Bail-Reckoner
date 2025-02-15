@@ -7,7 +7,7 @@ const SECRET_KEY = process.env.JWT_SECRET;
 
 const registerUser = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, isOfficial, isJudge } = req.body;
 
     // Check if user already exists in the custom "users" table
     const { data: existingUser, error: selectError } = await supabase
@@ -23,17 +23,30 @@ const registerUser = async (req, res) => {
       return res.status(400).json({ error: selectError.message });
     }
 
+    // Determine role based on isOfficial flag:
+    // If official authority signup is used, set role accordingly.
+    // If isJudge is true => "judge", if false => "legal aid provider".
+    // Otherwise, default to "under trial prisoner".
+    let role;
+    if (isOfficial) {
+      role = isJudge ? "judge" : "legal aid provider";
+    } else {
+      role = "under trial prisoner";
+    }
+
     // Register user in Supabase Auth
     const { data, error } = await supabase.auth.signUp({ email, password });
     if (error) {
       return res.status(400).json({ error: error.message });
     }
 
-    const { error: dbError } = await supabase.from("users").insert([{ email }]);
+    // Insert user into the custom "users" table with their role
+    const { error: dbError } = await supabase.from("users").insert([{ email, role }]);
     if (dbError) {
       return res.status(500).json({ error: dbError.message });
     }
-
+    
+    console.log("Received values:", { isOfficial, isJudge });
     return res.status(201).json({ message: "User registered successfully", data });
   } catch (err) {
     return res.status(500).json({ error: err.message });

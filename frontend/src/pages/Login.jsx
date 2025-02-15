@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import { useAuthStore } from '../components/auth';
 import { KeyRound, Mail } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import '../assets/css/login.css'; // Import external CSS
+import { createClient } from '@supabase/supabase-js';
+import '../assets/css/login.css';
+
+// Initialize Supabase client with VITE_ environment variables
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -13,9 +19,28 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const result = await login(email, password);
-    // Only navigate to '/home' if there is no error returned from login
+    // After successful login:
     if (!result?.error) {
-      navigate('/home');
+      localStorage.setItem('userEmail', email); // <-- Add this line
+      // ... then fetch role and navigate accordingly
+      const { data: userData, error: roleError } = await supabase
+        .from('users')
+        .select('role')
+        .eq('email', email)
+        .single();
+    
+      if (roleError || !userData) {
+        navigate('/dashboard');
+      } else {
+        const role = userData.role;
+        if (role === 'judge') {
+          navigate('/dashboard/judge');
+        } else if (role === 'legal aid provider') {
+          navigate('/dashboard/legal-aid');
+        } else {
+          navigate('/dashboard');
+        }
+      }
     }
   };
 
@@ -59,7 +84,7 @@ export default function LoginPage() {
           {error && <div className="error-message">{error}</div>}
 
           <button type="submit" disabled={isLoading} className="login-button">
-            {isLoading ? 'Signing in...' : 'Sign in'}
+            {isLoading ? 'Logging in...' : 'Log In'}
           </button>
         </form>
       </div>
