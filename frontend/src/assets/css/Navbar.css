@@ -17,8 +17,17 @@
     align-items: center;
   }
   
-  
+  /* Style for the logo image */
+  .logo-image {
+    width: 40px;        /* Adjust the size as needed */
+    height: auto;
+    margin-right: 10px; /* Space between the logo and text */
+  }
+
   .logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -65,34 +74,4 @@
     font-weight: bold;
     background-color: #1f2937;
     transform: scale(1.1);
-  }
-  
-  /* Mobile styles */
-  @media (max-width: 768px) {
-    .nav-list {
-      display: none;
-    }
-  }
-  
-  /* Add these styles if you want to implement a mobile menu later */
-  .mobile-menu-button {
-    display: none;
-  }
-  
-  @media (max-width: 768px) {
-    .mobile-menu-button {
-      display: inline-flex;
-      padding: 0.5rem;
-      border-radius: 0.5rem;
-      color: #9ca3af;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-  
-    .mobile-menu-button:hover {
-      color: #ffffff;
-      background-color: #1f2937;
-    }
   }

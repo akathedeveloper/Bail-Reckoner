@@ -7,14 +7,17 @@ export const useAuthStore = create((set) => ({
   isLoading: false,
   error: null,
 
-  signup: async (email, password) => {
+  signup: async (email, password, officialInfo = {}) => {
     try {
       set({ isLoading: true, error: null });
+
+      // Construct payload including official info if provided
+      const payload = { email, password, ...officialInfo };
 
       const response = await fetch(`${API_URL}/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify(payload),
       });
 
       const data = await response.json();
@@ -39,7 +42,7 @@ export const useAuthStore = create((set) => ({
       });
   
       const data = await response.json();
-      console.log("Login response data:", data); // <-- Log the data
+      console.log("Login response data:", data);
   
       if (!response.ok) throw new Error(data.error || "Login failed");
   
@@ -54,6 +57,7 @@ export const useAuthStore = create((set) => ({
 
   logout: () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userEmail");
     set({ user: null });
   },
 }));
