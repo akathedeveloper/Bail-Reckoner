@@ -7,6 +7,7 @@ const Dashboard = () => {
       <div className="dashboard-sections">
         <div className="dashboard-section bail-evaluation">
           <h2>Automated Bail Evaluation</h2>
+          <hr></hr>
           <p>Evaluate your bail eligibility using our automated system.</p>
           <Link to="/bail-evaluation" className="dashboard-link">
             Go to Bail Evaluation
@@ -14,6 +15,7 @@ const Dashboard = () => {
         </div>
         <div className="dashboard-section document-management">
           <h2>Easy Document Management</h2>
+          <hr></hr>
           <p>Manage and upload your documents easily.</p>
           <Link to="/document-management" className="dashboard-link">
             Go to Document Management
@@ -21,6 +23,7 @@ const Dashboard = () => {
         </div>
         <div className="dashboard-section legal-aid-request">
           <h2>Simple Legal Aid Requests</h2>
+          <hr></hr>
           <p>Request legal aid assistance easily.</p>
           <Link to="/legal-aid-request" className="dashboard-link">
             Go to Legal Aid Requests
@@ -28,6 +31,7 @@ const Dashboard = () => {
         </div>
         <div className="dashboard-section family-notifications">
           <h2>Family Notifications</h2>
+          <hr></hr>
           <p>Notify your family about your case status.</p>
           <Link to="/family-notifications" className="dashboard-link">
             Go to Family Notifications
@@ -35,6 +39,7 @@ const Dashboard = () => {
         </div>
         <div className="dashboard-section ai-chatbot">
           <h2>AI Chatbot</h2>
+          <hr></hr>
           <p>Ask your legal questions to our AI chatbot.</p>
           <Link to="/ai-chatbot" className="dashboard-link">
             Go to AI Chatbot
