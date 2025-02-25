@@ -22,11 +22,11 @@ const Dashboard = () => {
           </Link>
         </div>
         <div className="dashboard-section legal-aid-request">
-          <h2>Simple Legal Aid Requests</h2>
+          <h2>Submit your cases</h2>
           <hr></hr>
-          <p>Request legal aid assistance easily.</p>
-          <Link to="/legal-aid-request" className="dashboard-link">
-            Go to Legal Aid Requests
+          <p>Simple and fast case registration</p>
+          <Link to="/cases" className="dashboard-link">
+            Go to Case from submission
           </Link>
         </div>
         <div className="dashboard-section family-notifications">

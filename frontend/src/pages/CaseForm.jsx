@@ -301,6 +301,7 @@ const CasePage = () => {
                   value={formData.custodyTime}
                   onChange={handleChange}
                   placeholder="Enter custody time..."
+                  style={{ fontWeight: 550, fontSize: 15, color: "rgb(75, 77, 77)" }}
                 />
               </div>
               <div className="form-group">
@@ -312,6 +313,7 @@ const CasePage = () => {
                   value={formData.adjournments}
                   onChange={handleChange}
                   placeholder="Enter adjournments..."
+                  style={{ fontWeight: 550, fontSize: 15, color: "rgb(75, 77, 77)" }}
                 />
               </div>
               <div className="form-group">
@@ -323,6 +325,7 @@ const CasePage = () => {
                   value={formData.bailAmount}
                   onChange={handleChange}
                   placeholder="Enter bail amount..."
+                  style={{ fontWeight: 550, fontSize: 15, color: "rgb(75, 77, 77)" }}
                 />
               </div>
               <div className="form-group">
@@ -334,6 +337,7 @@ const CasePage = () => {
                   onChange={handleChange}
                   rows={3}
                   placeholder="Enter bail conditions..."
+                  style={{ fontWeight: 550, fontSize: 15, color: "rgb(75, 77, 77)" }}
                 ></textarea>
               </div>
             </div>
