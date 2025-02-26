@@ -17,7 +17,7 @@ const LegalAidDashboard = () => {
           <h2>Case Management</h2>
           <hr></hr>
           <p>Organize and manage your assigned cases.</p>
-          <Link to="/case-management" className="dashboard-link">
+          <Link to="/case-requests" className="dashboard-link">
             Go to Case Management
           </Link>
         </div>
