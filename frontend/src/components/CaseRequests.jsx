@@ -118,12 +118,12 @@ const RequestsList = () => {
                     <strong>Status:</strong> {request.status}
                   </p>
                 </div>
-                <hr></hr>
+                <br></br>
                 {caseData && (
                   <div className="case-details">
                     {/* Make sure these column names match your DB exactly */}
                     <p><strong>Age:</strong> {caseData.age}</p>
-                    <p><strong>Offense:</strong> {caseData.offenseNature}</p>
+                    <p><strong>Offence:</strong> {caseData.offenseNature}</p>
                     <p><strong>Severity:</strong> {caseData.severity}</p>
                     <p><strong>Custody Time:</strong> {caseData.custodyTime}</p>
                     <p><strong>Bail Amount:</strong> {caseData.bailAmount}</p>

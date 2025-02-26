@@ -29,7 +29,7 @@ const CaseList = () => {
         .from('cases')
         .select('*')
         .eq('submitted_by', userEmail)
-        .order('created_at', { ascending: false });
+        .order('id', { ascending: true });
 
       if (error) throw error;
       setCases(data);

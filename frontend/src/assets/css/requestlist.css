@@ -1,7 +1,7 @@
 /* requestList.css */
 .requestList-outer {
     width: 100%;
-    background: #1f2937;
+    background: #111827;
   }
   
   .requests-list {
@@ -36,7 +36,7 @@
   }
   
   .request-card {
-    background: white;
+    background: #111827;
     border-radius: 15px;
     padding: 1.5rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -58,13 +58,13 @@
   .request-info h2 {
     margin: 0;
     font-size: 1.5rem;
-    color: #1f2937;
+    color: #34d399;
   }
   
   .request-info p {
     margin: 0;
     font-size: 1rem;
-    color: #4b5563;
+    color: #34d399;
   }
 
 .request-title {
@@ -77,7 +77,7 @@
     margin: 0;
     font-size: 1rem;
     margin-bottom: 0.3rem;
-    color: #4b5563;
+    color: #8fd3bd;
   }
   
   .request-icon {
@@ -94,33 +94,39 @@
   }
 
   .accept-btn {
-    background-color: #3b82f6;
+    background-color: #28b984;
     color: white;
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1rem;
     border-radius: 6px;
     border: none;
     cursor: pointer;
+    font-size: medium;
+    font-weight: 600;
     align-self: flex-end;
+    width:50%;
     transition: background-color 0.3s ease;
   }
   
   .accept-btn:hover {
-    background-color: #2563eb;
+    background-color: #1b8760;
   }
 
   .decline-btn {
     background-color: #f63b48;
     color: white;
-    padding: 0.5rem 1rem;
+    padding: 0.75rem;
     border-radius: 6px;
     border: none;
     cursor: pointer;
+    font-size: medium;
+    font-weight: 600;
     align-self: flex-end;
+    width: 50%;
     transition: background-color 0.3s ease;
   }
   
   .decline-btn:hover {
-    background-color: #ae1527;
+    background-color: #af2132;
   }
   
   .no-requests {

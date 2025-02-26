@@ -1,19 +1,9 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuthStore } from "../components/auth";
+import { Link } from "react-router-dom";
 import "../assets/css/Navbar.css";
 import logo from "../assets/images/ai-ethic.png"; // Adjust the path if needed
 
 const Navbar = () => {
-  const { logout } = useAuthStore();
-  const navigate = useNavigate();
-
-  const handleLogout = (e) => {
-    e.preventDefault();
-    logout();
-    navigate("/");
-  };
-
   return (
     <header id="header">
       <div className="container">
@@ -41,8 +31,8 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="#" onClick={handleLogout} className="nav-link logout-button">
-                Logout
+              <Link to="/profile" className="nav-link">
+                Profile
               </Link>
             </li>
           </ul>

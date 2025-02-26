@@ -8,6 +8,7 @@ import BailPage from "./pages/BailPage";
 import CaseList from "./components/Caselist";
 import LegalAidList from "./components/LegalAidList";
 import RequestsList from "./components/CaseRequests";
+import UserProfile from "./pages/UserProfile";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
           <Route path="/" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/home" element={<HomePage />} />
+          <Route path="/profile" element={<UserProfile />} />
           {/* Updated routes to match login navigation */}
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/dashboard/judge" element={<DashboardPage />} />

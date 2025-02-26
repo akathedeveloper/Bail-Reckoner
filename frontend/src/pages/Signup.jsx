@@ -1,31 +1,70 @@
-import React, { useState } from 'react';
-import { useAuthStore } from '../components/auth';
-import { KeyRound, Mail } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import '../assets/css/signup.css';
+import React, { useState } from "react";
+import { createClient } from "@supabase/supabase-js";
+import { KeyRound, Mail } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import "../assets/css/signup.css";
+
+/** 
+ * Initialize your Supabase client 
+ * Make sure you have VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY 
+ * in your .env (or similar) for environment variables
+ */
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export default function SignupPage() {
   const [isFlipped, setIsFlipped] = useState(false); // Determines which form to show
-  const [isJudge, setIsJudge] = useState(false); // For official authority signup
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const { signup, isLoading, error } = useAuthStore();
+  const [isJudge, setIsJudge] = useState(false);     // For official authority signup
+  const [email, setEmail] = useState("");
+  const [full_name, setFullName] = useState("");     // Full name state
+  const [password, setPassword] = useState("");
   const [hover, setHover] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(null);    // Local error message state
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Pass both isOfficial (set by isFlipped) and isJudge from the checkbox
-    const result = await signup(email, password, { isOfficial: isFlipped, isJudge });
-    if (!result?.error) {
-      navigate('/login');
+    setIsLoading(true);
+    setErrorMsg(null);
+
+    // Build a role or status based on isFlipped / isJudge if desired
+    const role = isJudge ? "judge" : isFlipped ? "legal aid provider" : "under trial prisoner";
+    
+    try {
+      // Insert a new row into the "users" table
+      // Make sure the columns match your Supabase DB schema
+      const { data, error } = await supabase
+        .from("users")
+        .insert([
+          {
+            email,
+            full_name,
+            password,
+            role,
+          },
+        ]);
+
+      if (error) {
+        console.error("Error inserting user:", error);
+        setErrorMsg(error.message);
+      } else {
+        // On success, navigate to login
+        navigate("/login");
+      }
+    } catch (err) {
+      console.error("Unexpected error:", err);
+      setErrorMsg("Something went wrong.");
+    } finally {
+      setIsLoading(false);
     }
-  };  
+  };
 
   return (
     <div className="signup-container">
       <div className="flip-container">
-        <div className={`flip-card ${isFlipped ? 'flipped' : ''}`}>
+        <div className={`flip-card ${isFlipped ? "flipped" : ""}`}>
           {/* Front: Normal User Signup */}
           <div className="flip-card-front">
             <div className="signup-box">
@@ -48,6 +87,19 @@ export default function SignupPage() {
                   </div>
                 </div>
                 <div className="input-group">
+                  <label>Full Name</label>
+                  <div className="input-wrapper">
+                    <Mail className="input-icon" />
+                    <input
+                      type="text"
+                      value={full_name}
+                      onChange={(e) => setFullName(e.target.value)}
+                      placeholder="Your Full Name"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="input-group">
                   <label>Password</label>
                   <div className="input-wrapper">
                     <KeyRound className="input-icon" />
@@ -60,14 +112,19 @@ export default function SignupPage() {
                     />
                   </div>
                 </div>
-                {error && <div className="error-message">{error}</div>}
-                <button type="submit" disabled={isLoading} className="signup-button" style={{marginTop: "20px"}}>
-                  {isLoading ? 'Signing up...' : 'Sign up'}
+                {errorMsg && <div className="error-message">{errorMsg}</div>}
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="signup-button"
+                  style={{ marginTop: "20px" }}
+                >
+                  {isLoading ? "Signing up..." : "Sign up"}
                 </button>
               </form>
-              <p style={{textAlign:"center"}}>Already have an account?</p>
-              <button onClick={() => navigate('/login')} className="signup-button">
-              Log In
+              <p style={{ textAlign: "center" }}>Already have an account?</p>
+              <button onClick={() => navigate("/login")} className="signup-button">
+                Log In
               </button>
               <button
                 type="button"
@@ -81,11 +138,12 @@ export default function SignupPage() {
                   borderRadius: "6px",
                   cursor: "pointer",
                   marginTop: "20px",
-                  display: "block",      
-                  margin: "20px auto",   
+                  display: "block",
+                  margin: "20px auto",
                   transition: "all 0.3s ease",
                 }}
-                onClick={() => setIsFlipped(true)}>
+                onClick={() => setIsFlipped(true)}
+              >
                 Official Authority
               </button>
             </div>
@@ -113,6 +171,19 @@ export default function SignupPage() {
                   </div>
                 </div>
                 <div className="input-group">
+                  <label>Full Name</label>
+                  <div className="input-wrapper">
+                    <Mail className="input-icon" />
+                    <input
+                      type="text"
+                      value={full_name}
+                      onChange={(e) => setFullName(e.target.value)}
+                      placeholder="Your Full Name"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="input-group">
                   <label>Password</label>
                   <div className="input-wrapper">
                     <KeyRound className="input-icon" />
@@ -135,14 +206,14 @@ export default function SignupPage() {
                     Judge
                   </label>
                 </div>
-                {error && <div className="error-message">{error}</div>}
+                {errorMsg && <div className="error-message">{errorMsg}</div>}
                 <button type="submit" disabled={isLoading} className="signup-button">
-                  {isLoading ? 'Signing up...' : 'Sign up'}
+                  {isLoading ? "Signing up..." : "Sign up"}
                 </button>
               </form>
-              <p style={{textAlign:"center"}}>Already have an account?</p>
-              <button onClick={() => navigate('/login')} className="signup-button">
-              Log In
+              <p style={{ textAlign: "center" }}>Already have an account?</p>
+              <button onClick={() => navigate("/login")} className="signup-button">
+                Log In
               </button>
               <button
                 type="button"
@@ -157,8 +228,8 @@ export default function SignupPage() {
                   cursor: "pointer",
                   marginTop: "20px",
                   transition: "all 0.3s ease",
-                  display: "block",      
-                  margin: "20px auto"   
+                  display: "block",
+                  margin: "20px auto",
                 }}
                 onClick={() => setIsFlipped(false)}
               >
