@@ -4,11 +4,6 @@ import { KeyRound, Mail } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "../assets/css/signup.css";
 
-/** 
- * Initialize your Supabase client 
- * Make sure you have VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY 
- * in your .env (or similar) for environment variables
- */
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseAnonKey);

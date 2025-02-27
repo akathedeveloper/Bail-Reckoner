@@ -76,7 +76,7 @@
     position: absolute;
     left: 0;
     bottom: 0;
-    height: 2px;
+    height: 1.5px;
     width: 0;
     background-color: #34d399;
     transition: width 0.3s ease;
