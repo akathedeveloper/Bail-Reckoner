@@ -208,7 +208,8 @@ const UserProfile = () => {
               </div>
             </div>
           </div>
-
+          
+          {userRole.toLowerCase() !== "under trial prisoner" && (
           <div className="profile-section">
             <h2>
               <Shield className="section-icon" />
@@ -266,7 +267,7 @@ const UserProfile = () => {
               </div>
             </div>
           </div>
-
+          )}
           <div className="profile-actions">
             {isEditing && (
               <button className="btn-save" onClick={handleSaveProfile}>

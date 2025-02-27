@@ -52,33 +52,79 @@ const RequestsList = () => {
       setLoading(false);
     }
   };  
-
-  const handleAcceptRequest = async (requestId, caseId) => {
+  
+  const handleAcceptRequest = async (requestId, caseId, requestedBy) => {
     try {
-      // Update the case: assign the legal aid provider's email to the case
+      // 1. Update the case: set legalAid to "accepted: <providerEmail>"
       const { error: updateCaseError } = await supabase
         .from('cases')
-        .update({ legalAid: providerEmail })
+        .update({ legalAid: `accepted: ${providerEmail}` })
         .eq('id', caseId);
-
       if (updateCaseError) throw updateCaseError;
-
-      // Update the request status to "Accepted"
+  
+      // 2. Update the request status to "Accepted"
       const { error: updateRequestError } = await supabase
         .from('requests')
         .update({ status: 'Accepted' })
         .eq('id', requestId);
-
       if (updateRequestError) throw updateRequestError;
-
-      alert('Case Accepted!');
+  
+      // 3. Fetch the family email (and optional user info) from the users table
+      const { data: userData, error: userError } = await supabase
+        .from('users')
+        .select('family_email, full_name')
+        .eq('email', requestedBy)
+        .single();
+      if (userError) throw userError;
+  
+      const familyEmail = userData.family_email;
+      if (!familyEmail) {
+        alert("No family email found for the prisoner");
+        return;
+      }
+  
+      // 4. Insert a record in family_notifications
+      //    Adjust column names to match your table schema
+      const title = `Case Accepted by: ${providerEmail}`;
+      const description = `Your case (ID: ${caseId}) has been accepted for review.`;
+      const { error: notifError } = await supabase
+        .from('family_notifications')
+        .insert([
+          {
+            prisoner_name: userData.full_name || requestedBy, 
+            family_email: familyEmail,
+            title: title,
+            description: description,
+          }
+        ]);
+      if (notifError) throw notifError;
+  
+      // 5. Trigger email notification via backend endpoint
+      const response = await fetch("http://localhost:5000/send-notification", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          toEmail: familyEmail,
+          caseId: caseId,
+          providerEmail: providerEmail,
+        }),
+      });
+      if (!response.ok) {
+        const errData = await response.json();
+        throw new Error(errData.message || "Email sending failed");
+      }
+  
+      alert('Case Accepted! Notification sent to the Client.');
       fetchRequests(); // Refresh the list
     } catch (error) {
       console.error('Error accepting request:', error);
       alert('Failed to accept request.');
     }
   };
-
+  
+  
   const handleDeclineRequest = async (requestId, caseId) => {
     try {
       // Update the case: set legalAid to NULL so a new request can be sent
@@ -153,7 +199,7 @@ const RequestsList = () => {
                   <div className="request-actions">
                     <button
                       className="accept-btn"
-                      onClick={() => handleAcceptRequest(request.id, request.case_id)}
+                      onClick={() => handleAcceptRequest(request.id, request.case_id, request.requested_by)}
                     >
                       Accept Case
                     </button>

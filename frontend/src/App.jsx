@@ -11,6 +11,7 @@ import RequestsList from "./components/CaseRequests";
 import UserProfile from "./pages/UserProfile";
 import Chat from "./components/Chat";
 import ClientRequest from "./components/ClientRequest";
+import FamilyNotificationPage from "./pages/FamilyNotifyPage";
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
           <Route path="/dashboard/legal-aid" element={<DashboardPage />} />
           <Route path="/cases" element={<CasePage />} />
           <Route path="/case-list" element={<CaseList />} />
+          <Route path="/family" element={<FamilyNotificationPage/>} />
           <Route path="/legalAidList" element={<LegalAidList />} />
           <Route path="/case-requests" element={<RequestsList />}/>
           <Route path="/bail" element={<BailPage />} />
