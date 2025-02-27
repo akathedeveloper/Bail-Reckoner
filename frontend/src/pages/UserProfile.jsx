@@ -4,10 +4,6 @@ import Navbar from "../components/Navbar";
 import {
   User,
   Settings,
-  Mail,
-  Briefcase,
-  MapPin,
-  Calendar,
   Shield,
   Edit, // Using the Edit (pencil) icon from lucide-react
 } from "lucide-react";
@@ -167,10 +163,6 @@ const UserProfile = () => {
                     <p>{editedProfile.email}</p>
                   )}
                 </div>
-                <Edit
-                  className="edit-icon"
-                  onClick={() => handleFieldToggle("email")}
-                />
               </div>
               {/* Phone */}
               <div className="info-item">

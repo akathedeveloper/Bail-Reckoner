@@ -83,7 +83,7 @@ const CasePage = () => {
           bailConditions: formData.bailConditions,
           submitted_by: email, // Add the email to the submission data
         },
-      ]);
+      ], { returning: "minimal" });
 
       if (error) {
         alert("Error submitting case: " + error.message);
@@ -170,6 +170,7 @@ const CasePage = () => {
                   onChange={handleChange}
                   min="18"
                   max="100"
+                  style={{ fontWeight: 550, fontSize: 15, color: "rgb(75, 77, 77)" }}
                 />
               </div>
               <div className="form-group">

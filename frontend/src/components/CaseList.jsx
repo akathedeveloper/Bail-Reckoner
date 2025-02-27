@@ -41,18 +41,20 @@ const CaseList = () => {
   };
 
   const getCaseStatus = (caseItem) => {
-    // Safely trim the legalAid value
     const legalAidValue = caseItem.legalAid ? caseItem.legalAid.trim() : '';
-
     if (!legalAidValue) {
       return { color: 'red', status: 'Not Requested', showButton: true };
     }
-    if (legalAidValue.toLowerCase() === 'under review') {
-      return { color: 'yellow', status: 'Under Review', showButton: true };
+    // Check if the legalAid field indicates it's under review
+    if (legalAidValue.toLowerCase().startsWith("under review")) {
+      const parts = legalAidValue.split(":");
+      const provider = parts[1] ? parts[1].trim() : "";
+      return { color: 'yellow', status: provider ? `Under Review by: ${provider}` : "Under Review", showButton: false };
     }
+    // Otherwise, assume it's accepted (provider email is stored)
     return { color: 'green', status: `Accepted by: ${legalAidValue}`, showButton: false };
   };
-
+  
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleString('en-US', {

@@ -9,6 +9,8 @@ import CaseList from "./components/Caselist";
 import LegalAidList from "./components/LegalAidList";
 import RequestsList from "./components/CaseRequests";
 import UserProfile from "./pages/UserProfile";
+import Chat from "./components/Chat";
+import ClientRequest from "./components/ClientRequest";
 
 const App = () => {
   return (
@@ -19,6 +21,8 @@ const App = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/profile" element={<UserProfile />} />
+          <Route path="/chat" element={<Chat />} />
+          <Route path="/client-requests" element={<ClientRequest />} />
           {/* Updated routes to match login navigation */}
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/dashboard/judge" element={<DashboardPage />} />

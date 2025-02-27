@@ -21,26 +21,37 @@ const RequestsList = () => {
 
   const fetchRequests = async () => {
     try {
-      /**
-       * 1) Use "cases:case_id(*)" to fetch the related case data
-       *    from the "cases" table, referencing the foreign key "case_id".
-       * 2) This assumes you have a 1:1 relationship set up in Supabase:
-       *    requests.case_id -> cases.id
-       */
       const { data, error } = await supabase
-        .from('requests')
-        .select('*, cases:case_id(*)')
-        .eq('provider_email', providerEmail)
-        .order('created_at', { ascending: false });
-
+        .from("requests")
+        .select("*, cases:case_id(*)")
+        .eq("provider_email", providerEmail)
+        .order("created_at", { ascending: false });
+  
       if (error) throw error;
-      setRequests(data);
+  
+      // Sort the requests: Accepted first (sorted by severity descending),
+      // then Pending, then Declined.
+      const sortedRequests = data.sort((a, b) => {
+        const statusOrder = { Accepted: 2, Pending: 1, Declined: 3 };
+        const orderA = statusOrder[a.status] || 4;
+        const orderB = statusOrder[b.status] || 4;
+        if (orderA !== orderB) {
+          return orderA - orderB;
+        }
+        // If both are accepted, sort by severity descending (higher severity first)
+        if (a.status === "Accepted" && b.status === "Accepted") {
+          return Number(b.cases?.severity) - Number(a.cases?.severity);
+        }
+        return 0;
+      });
+  
+      setRequests(sortedRequests);
     } catch (error) {
-      console.error('Error fetching requests:', error);
+      console.error("Error fetching requests:", error);
     } finally {
       setLoading(false);
     }
-  };
+  };  
 
   const handleAcceptRequest = async (requestId, caseId) => {
     try {
@@ -68,22 +79,29 @@ const RequestsList = () => {
     }
   };
 
-  const handleDeclineRequest = async (requestId) => {
+  const handleDeclineRequest = async (requestId, caseId) => {
     try {
+      // Update the case: set legalAid to NULL so a new request can be sent
+      const { error: updateCaseError } = await supabase
+        .from('cases')
+        .update({ legalAid: null })
+        .eq('id', caseId);
+      if (updateCaseError) throw updateCaseError;
+  
+      // Update the request status to "Declined"
       const { error } = await supabase
         .from('requests')
         .update({ status: 'Declined' })
         .eq('id', requestId);
-
       if (error) throw error;
       alert('Case Declined.');
-      fetchRequests(); // Refresh the list
+      fetchRequests(); 
     } catch (error) {
       console.error('Error declining request:', error);
       alert('Failed to decline request.');
     }
   };
-
+  
   if (loading) {
     return <div className="loading">Loading requests...</div>;
   }
@@ -141,7 +159,7 @@ const RequestsList = () => {
                     </button>
                     <button
                       className="decline-btn"
-                      onClick={() => handleDeclineRequest(request.id)}
+                      onClick={() => handleDeclineRequest(request.id, request.case_id)}
                     >
                       Decline Case
                     </button>

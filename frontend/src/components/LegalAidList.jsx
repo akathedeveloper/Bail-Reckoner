@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import Navbar from '../components/Navbar';
+import { useNavigate } from 'react-router-dom';
 import { UserCheck, Star, Clock } from 'lucide-react';
 import '../assets/css/legalaidList.css';
 
@@ -14,11 +15,19 @@ const LegalAidList = () => {
   const [loading, setLoading] = useState(true);
   const selectedCaseId = localStorage.getItem('selectedCaseId');
   const userEmail = localStorage.getItem('userEmail'); // current user's email
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchLegalAidProviders();
   }, []);
 
+  const handleOpenChat = (providerEmail) => {
+    // For example, store the provider’s email in localStorage
+    localStorage.setItem("selectedProviderEmail", providerEmail);
+    // Then navigate to the chat page
+    navigate("/chat");
+  };
+  
   const fetchLegalAidProviders = async () => {
     try {
       const { data, error } = await supabase
@@ -42,10 +51,34 @@ const LegalAidList = () => {
       return;
     }
     
-    // Save the selected provider's email to local storage
+    // Save the selected provider's email to localStorage
     localStorage.setItem('selectedProviderEmail', providerEmail);
-
+  
     try {
+      // 1) Check if there's already a "Pending" or "Accepted" request for this case_id
+      const { data: existingRequests, error: existingError } = await supabase
+        .from('requests')
+        .select('*')
+        .eq('case_id', selectedCaseId)
+        .in('status', ['Pending', 'Accepted']);
+  
+      if (existingError) throw existingError;
+  
+      // If there's at least one row with status "Pending" or "Accepted", don't allow a new request
+      if (existingRequests && existingRequests.length > 0) {
+        alert('A request is already pending or accepted for this case. You cannot create another.');
+        return;
+      }
+  
+      // 2) Update the case: mark it as "under review" with the provider's email
+      const { error: updateCaseError } = await supabase
+        .from('cases')
+        .update({ legalAid: `under review: ${providerEmail}` })
+        .eq('id', selectedCaseId);
+  
+      if (updateCaseError) throw updateCaseError;
+  
+      // 3) Insert a new request with status "Pending"
       const { data, error } = await supabase
         .from('requests')
         .insert([
@@ -56,14 +89,14 @@ const LegalAidList = () => {
             status: 'Pending',
           },
         ]);
-      
       if (error) throw error;
+  
       alert('Request sent successfully!');
     } catch (error) {
       console.error('Error sending request:', error);
       alert('Failed to send request.');
     }
-  };
+  };  
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -73,10 +106,6 @@ const LegalAidList = () => {
       day: 'numeric'
     });
   };
-
-  if (loading) {
-    return <div className="loading">Loading legal aid providers...</div>;
-  }
 
   return (
     <div className="legalList-outer">
@@ -117,7 +146,12 @@ const LegalAidList = () => {
                   <p>{provider.specialization}</p>
                 </div>
               )}
-
+              <button
+                className="chat-btn"
+                onClick={() => handleOpenChat(provider.email)}
+              >
+                Start Chat
+              </button>
               <button
                 className="request-review-btn"
                 onClick={() => handleRequestReview(provider.email)}
