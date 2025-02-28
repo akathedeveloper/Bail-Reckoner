@@ -64,6 +64,9 @@
   .client-list {
     flex: 1;
     padding: 10px;
+    gap: 1rem;
+    display:flex;
+    flex-direction: column;
     overflow-y: auto;
     background-color: #1f2937;
   }
@@ -103,7 +106,7 @@
   
   .client-card:hover,
   .client-card:hover .client-header {
-    background-color: #454545;
+    background-color: #313037;
   }
     
   .client-header {

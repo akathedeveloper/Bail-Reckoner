@@ -226,9 +226,11 @@ export default function DocManage() {
     });
   };
 
-  const filteredCases = cases.filter(caseItem => 
-    caseItem.submitted_by?.toLowerCase().includes(searchQuery.toLowerCase())
+  const currentUserEmail = localStorage.getItem("userEmail")?.toLowerCase();
+  const filteredCases = cases.filter(
+    (caseItem) => caseItem.submitted_by?.toLowerCase() === currentUserEmail
   );
+
 
   return (
     <div className="docmanage-page">
