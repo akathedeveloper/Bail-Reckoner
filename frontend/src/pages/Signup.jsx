@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAuthStore } from "../components/auth";
-import { KeyRound, Mail } from "lucide-react";
+import { KeyRound, Mail, Weight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "../assets/css/signup.css";
 
@@ -105,17 +105,17 @@ export default function SignupPage() {
                 onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}
                 style={{
-                  backgroundColor: hover ? "#4f46e5" : "white",
-                  border: "2px solid #4f46e5",
-                  color: hover ? "white" : "#4f46e5",
+                  backgroundColor: hover ? "#34d399" : "white",
+                  color: "#111827",
                   padding: "10px 20px",
                   borderRadius: "6px",
-                  cursor: "pointer",
                   marginTop: "20px",
                   display: "block",
+                  fontSize: "14px",
+                  fontWeight: "bold",
                   margin: "20px auto",
-                  transition: "all 0.3s ease",
-                }}
+                  transition: "background-color 0.3s ease",
+                }}                
                 onClick={() => setIsFlipped(true)}
               >
                 Official Authority
@@ -194,17 +194,17 @@ export default function SignupPage() {
                 onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}
                 style={{
-                  backgroundColor: hover ? "#4f46e5" : "white",
-                  border: "2px solid #4f46e5",
-                  color: hover ? "white" : "#4f46e5",
+                  backgroundColor: hover ? "#34d399" : "white",
+                  color: "#111827",
                   padding: "10px 20px",
                   borderRadius: "6px",
-                  cursor: "pointer",
                   marginTop: "20px",
-                  transition: "all 0.3s ease",
                   display: "block",
+                  fontSize: "14px",
+                  fontWeight: "bold",
                   margin: "20px auto",
-                }}
+                  transition: "background-color 0.3s ease",
+                }}     
                 onClick={() => setIsFlipped(false)}
               >
                 Normal User

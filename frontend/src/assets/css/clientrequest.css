@@ -101,12 +101,12 @@
 
   .client-card,
   .client-card .client-header {
-    transition: background-color 0.3s ease;
+    transition: transform 0.3s ease;
   }
   
   .client-card:hover,
   .client-card:hover .client-header {
-    background-color: #313037;
+    transform: translateY(-5px);
   }
     
   .client-header {
@@ -121,7 +121,7 @@
   .client-header h3 {
     margin: 0;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 500;
     color: #ffffff;
     white-space: nowrap;
     overflow: hidden;
@@ -129,7 +129,7 @@
   
   .client-header .message-time {
     font-size: 15px;
-    color: #cdcdcd;
+    color: #34d399;
     font-weight: 600;
   }  
   

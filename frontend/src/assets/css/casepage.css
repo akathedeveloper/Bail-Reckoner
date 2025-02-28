@@ -1,13 +1,19 @@
+html, body {
+  background-color: #1f2937;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
 .case-page {
-    min-height: 100vh;
-    background-color: #f3f6f6;
+    background-color: #1f2937;
   }
   
   .case-container {
     max-width: 1000px;
     margin: 2rem auto;
     padding: 2rem;
-    background: #1f2937;
+    background: #111827;
     border-radius: 1rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     animation: fadeIn 0.5s ease-out;
@@ -179,9 +185,9 @@
     gap: 0.5rem;
   }
   
-  .btn-primary {
+  .btn-primary, .btn-submit {
     background: #34d399;
-    color: #374151;
+    color: #1f2937;
     font-size:15px;
     border: none;
   }
@@ -190,20 +196,20 @@
     background: #037753;
     color: white;
     font-size:15px;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
   }
   
   .btn-secondary {
     background: #f3f4f6;
     color: #374151;
     font-size:15px;
-    border: 1px solid #bbbbbb;
+    border: 1px solid #f3f4f6;
   }
   
   .btn-secondary:hover {
-    background: #bbbbbb;
-    font-size:15px;
-    transform: translateY(-1px);
+    background: #cdcdcd;
+    font-size: 15px;
+    transform: translateY(-2px);
   }
   
   @keyframes slideUp {

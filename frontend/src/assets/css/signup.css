@@ -102,7 +102,8 @@
 }
 
 .signup-button:disabled {
-  background: #a5b4fc;
+  background: #b7c2fa;
+  color:#111827;
   cursor: not-allowed;
 }
 
@@ -143,28 +144,13 @@
   transform: rotateY(180deg);
 }
 
-/* Toggle button for flipping the form */
-.toggle-button {
-  margin-top: 1rem;
-  background-color: transparent;
-  border: none;
-  color: #34d399;
-  cursor: pointer;
-  text-decoration: underline;
-  font-size: 0.9rem;
-  transition: color 0.3s;
-}
-.toggle-button:hover {
-  color: #29a477;
-}
-
 /* Additional styling for the judge checkbox group */
 .checkbox-group {
   margin-bottom: 15px;
 }
 .checkbox-group label {
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   color: #34d399;
   display: flex;
   align-items: center;

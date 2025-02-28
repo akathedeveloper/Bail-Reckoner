@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 const JudgeDashboard = () => {
   return (
     <div className="dashboard">
-      <h1>Judge Dashboard</h1>
+      <h1 style={{color: "#34d399"}}>Judge Dashboard</h1>
       <div className="dashboard-sections">
         <div className="dashboard-section case-overview">
-          <h2>Case Overview</h2>
+          <h2>Case Assignments</h2>
           <hr></hr>
-          <p>Review cases and make judicial decisions.</p>
-          <Link to="/case-overview" className="dashboard-link">
+          <p>Review cases and make feedbacks.</p>
+          <Link to="/judge-case-list" className="dashboard-link">
             Go to Case Overview
           </Link>
         </div>

@@ -13,6 +13,7 @@ import Chat from "./components/Chat";
 import ClientRequest from "./components/ClientRequest";
 import FamilyNotificationPage from "./pages/FamilyNotifyPage";
 import DocManage from "./components/DocManage";
+import JudgeCaseList from "./components/JudgeCaseList";
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/client-requests" element={<ClientRequest />} />
+          <Route path="/judge-case-list" element={<JudgeCaseList />} />
           {/* Updated routes to match login navigation */}
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/dashboard/judge" element={<DashboardPage />} />
