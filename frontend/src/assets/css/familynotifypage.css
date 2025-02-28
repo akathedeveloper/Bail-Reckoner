@@ -252,18 +252,18 @@
   }
   
   .change-email-btn {
-    background: none;
-    border: none;
-    color: #34d399;
+    background: #34d399;
+    border-radius: 10px;
+    color: #1f2937;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
-    padding: 4px 8px;
-    transition: ease-in-out 0.3s;
+    padding: 8px 10px;
+    transition: background-color 0.3s;
   }
   
   .change-email-btn:hover {
-    transition: scale(1.05);
+    background-color: #9ca3af;
   }
   
   /* Achievement Card */
@@ -361,7 +361,7 @@
   }
   
   .notification-card:hover {
-    transform: scale(1.03);
+    transform: scale(1.02);
   }
   
   .notification-card-header {

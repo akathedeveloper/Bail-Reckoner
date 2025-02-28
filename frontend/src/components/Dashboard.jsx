@@ -9,7 +9,7 @@ const Dashboard = () => {
           <h2>Easy Document Management</h2>
           <hr></hr>
           <p>Manage and upload your documents easily.</p>
-          <Link to="/document-management" className="dashboard-link">
+          <Link to="/doc-manager" className="dashboard-link">
             Go to Document Management
           </Link>
         </div>
