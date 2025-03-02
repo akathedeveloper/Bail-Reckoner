@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Scale } from "lucide-react";
 import "../assets/css/Navbar.css";
 import logo from "../assets/images/ai-ethic.png"; // Adjust the path if needed
 
@@ -8,9 +9,9 @@ const Navbar = () => {
     <header id="header">
       <div className="container">
         <div className="logo">
-          <Link to="/home" className="logo-link">
-            <img src={logo} alt="Logo" className="logo-image" />
-            Bail Reckoner
+        <Link to="/dashboard" className="logo-link">
+            <Scale className="logo-icon" />
+            <span>Bail Reckoner</span>
           </Link>
         </div>
         <nav className="navbar">

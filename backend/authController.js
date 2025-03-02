@@ -23,10 +23,6 @@ const registerUser = async (req, res) => {
       return res.status(400).json({ error: selectError.message });
     }
 
-    // Determine role based on isOfficial flag:
-    // If official authority signup is used, set role accordingly.
-    // If isJudge is true => "judge", if false => "legal aid provider".
-    // Otherwise, default to "under trial prisoner".
     let role;
     if (isOfficial) {
       role = isJudge ? "judge" : "legal aid provider";

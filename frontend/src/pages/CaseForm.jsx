@@ -26,6 +26,7 @@ const CasePage = () => {
     adjournments: "",
     bailAmount: "",
     bailConditions: "",
+    judgeAssigned: ""
   });
 
   const nextSection = () => {
@@ -82,6 +83,7 @@ const CasePage = () => {
           bailAmount: formData.bailAmount,
           bailConditions: formData.bailConditions,
           submitted_by: email, // Add the email to the submission data
+          judgeAssigned: formData.judgeAssigned
         },
       ], { returning: "minimal" });
 
@@ -106,6 +108,7 @@ const CasePage = () => {
           adjournments: "",
           bailAmount: "",
           bailConditions: "",
+          judgeAssigned: ""
         });
 
         setActiveSection(1); // Reset to the first section after submission
@@ -223,7 +226,7 @@ const CasePage = () => {
           </div>
 
           <div className={`form-section ${activeSection === 3 ? 'active' : ''}`}>
-            <h2>Case Information & Legal Proceedings</h2>
+            <h2>Legal Proceedings Information</h2>
             <div className="form-grid">
               <div className="form-group">
                 <label htmlFor="offenseNature">Nature of Offense</label>
@@ -294,6 +297,18 @@ const CasePage = () => {
                 ></textarea>
               </div>
               <div className="form-group">
+                <label htmlFor="bailConditions">Bail Conditions</label>
+                <textarea
+                  id="bailConditions"
+                  name="bailConditions"
+                  value={formData.bailConditions}
+                  onChange={handleChange}
+                  rows={3}
+                  placeholder="Enter bail conditions..."
+                  style={{ fontWeight: 550, fontSize: 15, color: "rgb(75, 77, 77)" }}
+                ></textarea>
+              </div>
+              <div className="form-group">
                 <label htmlFor="custodyTime">Custody Time</label>
                 <input
                   type="text"
@@ -330,16 +345,16 @@ const CasePage = () => {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="bailConditions">Bail Conditions</label>
-                <textarea
-                  id="bailConditions"
-                  name="bailConditions"
-                  value={formData.bailConditions}
+                <label htmlFor="judgeAssigned">Judge Assigned</label>
+                <input
+                  type="text"
+                  id="judgeAssigned"
+                  name="judgeAssigned"
+                  value={formData.judgeAssigned}
                   onChange={handleChange}
-                  rows={3}
-                  placeholder="Enter bail conditions..."
+                  placeholder="Name of the Judge..."
                   style={{ fontWeight: 550, fontSize: 15, color: "rgb(75, 77, 77)" }}
-                ></textarea>
+                />
               </div>
             </div>
           </div>

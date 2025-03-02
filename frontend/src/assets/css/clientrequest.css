@@ -64,6 +64,9 @@
   .client-list {
     flex: 1;
     padding: 10px;
+    gap: 1rem;
+    display:flex;
+    flex-direction: column;
     overflow-y: auto;
     background-color: #1f2937;
   }
@@ -98,12 +101,12 @@
 
   .client-card,
   .client-card .client-header {
-    transition: background-color 0.3s ease;
+    transition: transform 0.3s ease;
   }
   
   .client-card:hover,
   .client-card:hover .client-header {
-    background-color: #454545;
+    transform: translateY(-5px);
   }
     
   .client-header {
@@ -118,7 +121,7 @@
   .client-header h3 {
     margin: 0;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 500;
     color: #ffffff;
     white-space: nowrap;
     overflow: hidden;
@@ -126,7 +129,7 @@
   
   .client-header .message-time {
     font-size: 15px;
-    color: #cdcdcd;
+    color: #34d399;
     font-weight: 600;
   }  
   

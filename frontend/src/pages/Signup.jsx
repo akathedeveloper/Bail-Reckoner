@@ -1,58 +1,37 @@
 import React, { useState } from "react";
-import { createClient } from "@supabase/supabase-js";
-import { KeyRound, Mail } from "lucide-react";
+import { useAuthStore } from "../components/auth";
+import { KeyRound, Mail, Weight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "../assets/css/signup.css";
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
 export default function SignupPage() {
   const [isFlipped, setIsFlipped] = useState(false); // Determines which form to show
-  const [isJudge, setIsJudge] = useState(false);     // For official authority signup
+  const [isJudge, setIsJudge] = useState(false);       // For official authority signup
   const [email, setEmail] = useState("");
-  const [full_name, setFullName] = useState("");     // Full name state
+  const [fullName, setFullName] = useState("");          // Full name state
   const [password, setPassword] = useState("");
   const [hover, setHover] = useState(false);
-  const [errorMsg, setErrorMsg] = useState(null);    // Local error message state
-  const [isLoading, setIsLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(null);        // Local error message state
+  const { signup, isLoading } = useAuthStore();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
     setErrorMsg(null);
 
-    // Build a role or status based on isFlipped / isJudge if desired
-    const role = isJudge ? "judge" : isFlipped ? "legal aid provider" : "under trial prisoner";
-    
-    try {
-      // Insert a new row into the "users" table
-      // Make sure the columns match your Supabase DB schema
-      const { data, error } = await supabase
-        .from("users")
-        .insert([
-          {
-            email,
-            full_name,
-            password,
-            role,
-          },
-        ]);
+    // Build official info if this is an official authority sign-up
+    const officialInfo = {};
+    if (isFlipped) {
+      officialInfo.isOfficial = true;
+      officialInfo.isJudge = isJudge;
+    }
 
-      if (error) {
-        console.error("Error inserting user:", error);
-        setErrorMsg(error.message);
-      } else {
-        // On success, navigate to login
-        navigate("/login");
-      }
-    } catch (err) {
-      console.error("Unexpected error:", err);
-      setErrorMsg("Something went wrong.");
-    } finally {
-      setIsLoading(false);
+    // Call the signup function from our auth store
+    const result = await signup(email, password, { full_name: fullName, ...officialInfo });
+    if (result.error) {
+      setErrorMsg(result.error);
+    } else {
+      navigate("/login");
     }
   };
 
@@ -87,7 +66,7 @@ export default function SignupPage() {
                     <Mail className="input-icon" />
                     <input
                       type="text"
-                      value={full_name}
+                      value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
                       placeholder="Your Full Name"
                       required
@@ -126,17 +105,17 @@ export default function SignupPage() {
                 onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}
                 style={{
-                  backgroundColor: hover ? "#4f46e5" : "white",
-                  border: "2px solid #4f46e5",
-                  color: hover ? "white" : "#4f46e5",
+                  backgroundColor: hover ? "#34d399" : "white",
+                  color: "#111827",
                   padding: "10px 20px",
                   borderRadius: "6px",
-                  cursor: "pointer",
                   marginTop: "20px",
                   display: "block",
+                  fontSize: "14px",
+                  fontWeight: "bold",
                   margin: "20px auto",
-                  transition: "all 0.3s ease",
-                }}
+                  transition: "background-color 0.3s ease",
+                }}                
                 onClick={() => setIsFlipped(true)}
               >
                 Official Authority
@@ -171,7 +150,7 @@ export default function SignupPage() {
                     <Mail className="input-icon" />
                     <input
                       type="text"
-                      value={full_name}
+                      value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
                       placeholder="Your Full Name"
                       required
@@ -215,17 +194,17 @@ export default function SignupPage() {
                 onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}
                 style={{
-                  backgroundColor: hover ? "#4f46e5" : "white",
-                  border: "2px solid #4f46e5",
-                  color: hover ? "white" : "#4f46e5",
+                  backgroundColor: hover ? "#34d399" : "white",
+                  color: "#111827",
                   padding: "10px 20px",
                   borderRadius: "6px",
-                  cursor: "pointer",
                   marginTop: "20px",
-                  transition: "all 0.3s ease",
                   display: "block",
+                  fontSize: "14px",
+                  fontWeight: "bold",
                   margin: "20px auto",
-                }}
+                  transition: "background-color 0.3s ease",
+                }}     
                 onClick={() => setIsFlipped(false)}
               >
                 Normal User

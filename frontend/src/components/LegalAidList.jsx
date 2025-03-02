@@ -139,13 +139,6 @@ const LegalAidList = () => {
                   <span>Member since {formatDate(provider.created_at)}</span>
                 </div>
               </div>
-
-              {provider.specialization && (
-                <div className="provider-specialization">
-                  <h3>Specialization</h3>
-                  <p>{provider.specialization}</p>
-                </div>
-              )}
               <button
                 className="chat-btn"
                 onClick={() => handleOpenChat(provider.email)}

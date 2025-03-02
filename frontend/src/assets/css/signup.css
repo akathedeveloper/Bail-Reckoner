@@ -8,7 +8,7 @@
   min-height: 100vh;
   display: flex;             /* Use flex to center content */
   justify-content: center; 
-  background: linear-gradient(to bottom right, #e0e7ff, #c7d2fe);
+  background: linear-gradient(135deg, #222c3b, #1f2937);
   padding: 20px;
 }
 
@@ -16,7 +16,7 @@
 .signup-box {
   max-width: 400px;
   width: 100%;
-  background: white;
+  background: #111827;
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
@@ -30,11 +30,11 @@
 .signup-header h1 {
   font-size: 24px;
   font-weight: bold;
-  color: #333;
+  color: #34d399;
 }
 
 .signup-header p {
-  color: #666;
+  color: #34d399;
 }
 
 .signup-form {
@@ -49,7 +49,7 @@
 .input-group label {
   font-size: 14px;
   font-weight: 500;
-  color: #333;
+  color: #34d399;
   margin-bottom: 5px;
   display: block;
 }
@@ -86,23 +86,24 @@
 .signup-button {
   width: 100%;
   padding: 10px;
-  background: #4f46e5;
+  background: #29ab7b;
   color: white;
   border: none;
   border-radius: 6px;
   font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
   margin-bottom: 10px;
   transition: all ease-in 0.2s;
 }
 
 .signup-button:hover {
-  background: #4338ca;
   transform: scale(1.05);
 }
 
 .signup-button:disabled {
-  background: #a5b4fc;
+  background: #b7c2fa;
+  color:#111827;
   cursor: not-allowed;
 }
 
@@ -143,29 +144,14 @@
   transform: rotateY(180deg);
 }
 
-/* Toggle button for flipping the form */
-.toggle-button {
-  margin-top: 1rem;
-  background-color: transparent;
-  border: none;
-  color: #007bff;
-  cursor: pointer;
-  text-decoration: underline;
-  font-size: 0.9rem;
-  transition: color 0.3s;
-}
-.toggle-button:hover {
-  color: #0056b3;
-}
-
 /* Additional styling for the judge checkbox group */
 .checkbox-group {
   margin-bottom: 15px;
 }
 .checkbox-group label {
   font-size: 14px;
-  font-weight: 500;
-  color: #333;
+  font-weight: 600;
+  color: #34d399;
   display: flex;
   align-items: center;
 }
