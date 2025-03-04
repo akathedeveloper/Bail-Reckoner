@@ -37,6 +37,14 @@ const Dashboard = () => {
             Go to AI Chatbot
           </Link>
         </div>
+        <div className="dashboard-section schedule-management">
+          <h2>Working Calendar</h2>
+          <hr></hr>
+          <p>Manage your court schedule and hearings.</p>
+          <Link to="/calender" className="dashboard-link">
+            Go to Schedule Management
+          </Link>
+        </div>
       </div>
     </div>
   );
