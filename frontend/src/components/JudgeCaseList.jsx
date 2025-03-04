@@ -16,6 +16,11 @@ const supabase = createClient(
   import.meta.env.VITE_SUPABASE_ANON_KEY
 );
 
+const truncate = (text, limit = 80) => {
+  if (!text) return '';
+  return text.length > limit ? text.substring(0, limit) + '...' : text;
+};
+
 export default function JudgeCaseList() {
   const navigate = useNavigate();
   const [cases, setCases] = useState([]);
@@ -221,16 +226,15 @@ export default function JudgeCaseList() {
                       <div className="judge-case-detail">
                         <span className="judge-case-key">Description:</span>
                         <span className="judge-case-value">
-                          {caseItem.caseDescription || "No description available"}
+                        {caseItem.caseDescription
+                            ? truncate(caseItem.caseDescription, 300)
+                            : "No description available"}
                         </span>
                       </div>
                     </div>           
                   </div>
-                  <div className="judge-case-actions">
-                    {expandedCase === caseItem.id ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
-                  </div>
                 </div>
-                {expandedCase === caseItem.id && (
+                {caseItem.id && (
                   <div className="judge-case-documents">
                     <div className="judge-trial-date-section">
                       {editingTrialDate[caseItem.id] ? (

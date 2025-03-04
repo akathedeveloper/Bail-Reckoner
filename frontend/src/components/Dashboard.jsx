@@ -33,7 +33,7 @@ const Dashboard = () => {
           <h2>AI Chatbot</h2>
           <hr></hr>
           <p>Ask your legal questions to our AI chatbot.</p>
-          <Link to="/ai-chatbot" className="dashboard-link">
+          <Link to="/chatbot" className="dashboard-link">
             Go to AI Chatbot
           </Link>
         </div>

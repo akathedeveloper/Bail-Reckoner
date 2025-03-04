@@ -14,6 +14,7 @@ import ClientRequest from "./components/ClientRequest";
 import FamilyNotificationPage from "./pages/FamilyNotifyPage";
 import DocManage from "./components/DocManage";
 import JudgeCaseList from "./components/JudgeCaseList";
+import ChatBot from "./components/Chatbot";
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
           <Route path="/judge-case-list" element={<JudgeCaseList />} />
           {/* Updated routes to match login navigation */}
           <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/chatbot" element={<ChatBot />} />
           <Route path="/dashboard/judge" element={<DashboardPage />} />
           <Route path="/dashboard/legal-aid" element={<DashboardPage />} />
           <Route path="/cases" element={<CasePage />} />

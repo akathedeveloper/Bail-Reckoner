@@ -55,7 +55,7 @@ export default function LoginPage() {
         <form onSubmit={handleSubmit} className="login-form">
           <div className="input-group">
             <label>Email Address</label>
-            <div className="input-wrapper">
+            <div className="log-input-wrapper">
               <Mail className="input-icon" />
               <input
                 type="email"
@@ -69,7 +69,7 @@ export default function LoginPage() {
 
           <div className="input-group">
             <label>Password</label>
-            <div className="input-wrapper">
+            <div className="log-input-wrapper">
               <KeyRound className="input-icon" />
               <input
                 type="password"

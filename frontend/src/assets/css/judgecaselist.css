@@ -41,7 +41,7 @@
   /* Individual Case Card */
   .judge-case-card {
     background-color: #222;
-    border-radius: 8px;
+    border-radius: 15px;
     padding: 1.5rem;
     transition: transform 0.3s ease;
   }
