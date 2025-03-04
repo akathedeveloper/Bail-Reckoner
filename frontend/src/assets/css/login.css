@@ -47,7 +47,7 @@
     display: block;
   }
   
-  .input-wrapper {
+  .log-input-wrapper {
     position: relative;
   }
   
@@ -59,7 +59,7 @@
     color: #888;
   }
   
-  .input-wrapper input {
+  .log-input-wrapper input {
     width: 100%;
     padding: 10px 10px 10px 40px;
     border: 1px solid #ddd;

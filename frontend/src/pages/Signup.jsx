@@ -49,7 +49,7 @@ export default function SignupPage() {
               <form onSubmit={handleSubmit} className="signup-form">
                 <div className="input-group">
                   <label>Email Address</label>
-                  <div className="input-wrapper">
+                  <div className="sign-input-wrapper">
                     <Mail className="input-icon" />
                     <input
                       type="email"
@@ -62,7 +62,7 @@ export default function SignupPage() {
                 </div>
                 <div className="input-group">
                   <label>Full Name</label>
-                  <div className="input-wrapper">
+                  <div className="sign-input-wrapper">
                     <Mail className="input-icon" />
                     <input
                       type="text"
@@ -75,7 +75,7 @@ export default function SignupPage() {
                 </div>
                 <div className="input-group">
                   <label>Password</label>
-                  <div className="input-wrapper">
+                  <div className="sign-input-wrapper">
                     <KeyRound className="input-icon" />
                     <input
                       type="password"
@@ -133,7 +133,7 @@ export default function SignupPage() {
               <form onSubmit={handleSubmit} className="signup-form">
                 <div className="input-group">
                   <label>Email Address</label>
-                  <div className="input-wrapper">
+                  <div className="sign-input-wrapper">
                     <Mail className="input-icon" />
                     <input
                       type="email"
@@ -146,7 +146,7 @@ export default function SignupPage() {
                 </div>
                 <div className="input-group">
                   <label>Full Name</label>
-                  <div className="input-wrapper">
+                  <div className="sign-input-wrapper">
                     <Mail className="input-icon" />
                     <input
                       type="text"
@@ -159,7 +159,7 @@ export default function SignupPage() {
                 </div>
                 <div className="input-group">
                   <label>Password</label>
-                  <div className="input-wrapper">
+                  <div className="sign-input-wrapper">
                     <KeyRound className="input-icon" />
                     <input
                       type="password"

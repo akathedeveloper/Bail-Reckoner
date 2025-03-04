@@ -24,22 +24,33 @@ const CaseList = () => {
   }, []);
 
   const fetchCases = async () => {
+    setLoading(true);
     try {
       const { data, error } = await supabase
         .from('cases')
         .select('*')
-        .eq('submitted_by', userEmail)
-        .order('id', { ascending: true });
-
+        .eq('submitted_by', userEmail);
       if (error) throw error;
-      setCases(data);
+  
+      // Define custom order: petty < minor < moderate < serious
+      const severityOrder = {
+        "petty": 1,
+        "minor": 2,
+        "moderate": 3,
+        "serious": 4
+      };
+      // Sort so that the most harming (serious) appears on top
+      const sortedData = data.sort((a, b) => 
+        severityOrder[b.severity.toLowerCase()] - severityOrder[a.severity.toLowerCase()]
+      );
+      setCases(sortedData);
     } catch (error) {
       console.error('Error fetching cases:', error);
     } finally {
       setLoading(false);
     }
   };
-
+  
   const getCaseStatus = (caseItem) => {
     const legalAidValue = caseItem.legalAid ? caseItem.legalAid.trim() : '';
     if (!legalAidValue) {

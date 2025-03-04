@@ -7,7 +7,7 @@
 .signup-container {
   min-height: 100vh;
   display: flex;             /* Use flex to center content */
-  justify-content: center; 
+  justify-content: center;
   background: linear-gradient(135deg, #222c3b, #1f2937);
   padding: 20px;
 }
@@ -54,7 +54,7 @@
   display: block;
 }
 
-.input-wrapper {
+.sign-input-wrapper {
   position: relative;
 }
 
@@ -66,7 +66,7 @@
   color: #888;
 }
 
-.input-wrapper input {
+.sign-input-wrapper input {
   width: 100%;
   padding: 10px 10px 10px 40px;
   border: 1px solid #ddd;
@@ -112,7 +112,9 @@
   perspective: 1000px;
   width: 100%;        /* Let it stretch within the signup-box width */
   max-width: 400px;   /* Match .signup-box max width */
-  position: absolute;
+  position: relative;
+  margin: 0;
+  overflow: hidden;
 }
 
 /* Restrict flip-card width to match the signup box */
