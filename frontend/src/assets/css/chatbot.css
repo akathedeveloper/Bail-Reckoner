@@ -35,7 +35,7 @@
 .conversations-sidebar {
   width: 300px;
   background-color: #1f2937;
-  border-right: 1px solid var(--border-color);
+  border-right: 1px solid #737373;
   display: flex;
   flex-direction: column;
   transition: transform var(--transition);
@@ -60,8 +60,8 @@
 
 /* Sidebar Header */
 .sidebar-header {
-  padding: 16px;
-  border-bottom: 1px solid var(--border-color);
+  padding: 14px;
+  border-bottom: 1px solid #737373;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -80,7 +80,7 @@
   border: none;
   padding: 8px 12px;
   border-radius: var(--radius);
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: background-color var(--transition);
 }
@@ -142,7 +142,7 @@
 
 .conversation-date {
   font-size: 0.8rem;
-  color: var(--light-text);
+  color: white;
   margin-top: 2px;
 }
 
@@ -150,7 +150,7 @@
 .delete-conversation {
   background: none;
   border: none;
-  color: var(--light-text);
+  color: white;
   cursor: pointer;
   padding: 4px;
   border-radius: 4px;
@@ -172,9 +172,9 @@
 
 /* Chat Header */
 .ai-chat-header {
-  padding: 14px;
+  padding: 18px;
   background-color: var(--white);
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid #737373;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -192,26 +192,12 @@
   color: var(--primary-color);
 }
 
-.toggle-sidebar {
-  background: none;
-  border: none;
-  color: var(--primary-color);
-  cursor: pointer;
-  padding: 6px;
-  border-radius: 50%;
-  transition: background-color var(--transition);
-}
-
-.toggle-sidebar:hover {
-  background-color: rgba(52, 211, 153, 0.1);
-}
-
 /* Chat Messages Container */
 .ai-chat-messages {
   flex: 1;
   overflow-y: auto;
   padding: 16px;
-  background-color: var(--bg-color);
+  background-color: transparent;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -312,7 +298,7 @@
 }
 
 .ai-message-time {
-  color: var(--light-text);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .ai-message.user .ai-message-time {
@@ -328,7 +314,6 @@
   padding: 4px;
   border-radius: 4px;
   transition: opacity var(--transition);
-  opacity: 0;
 }
 
 .ai-message-content:hover .copy-button {
@@ -382,7 +367,7 @@
 /* Input Section */
 .ai-chat-input-container {
   background-color: var(--white);
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid #737373;
   padding: 16px;
 }
 
@@ -421,7 +406,7 @@
 }
 
 .ai-input-wrapper textarea::placeholder {
-  color: var(--light-text);
+  color: #e5e7eb;
 }
 
 .send-button {
@@ -448,16 +433,6 @@
   background-color: #34d399;
   opacity: 0.6;
   cursor: not-allowed;
-}
-
-.ai-input-footer {
-  font-size: 0.75rem;
-  color: var(--light-text);
-}
-
-.ai-input-hint {
-  color: var(--light-text);
-  margin-left: 4px;
 }
 
 /* Responsive Adjustments */

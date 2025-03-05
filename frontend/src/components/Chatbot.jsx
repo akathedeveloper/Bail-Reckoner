@@ -312,7 +312,7 @@ const handleSendMessage = async () => {
                 setShowConversations(false);
               }}
             >
-              + New Chat
+              + Chat
             </button>
           </div>
           <div className="conversations-list">
@@ -351,12 +351,6 @@ const handleSendMessage = async () => {
         <div className="ai-chat-main">
           <div className="ai-chat-header">
             <div className="header-left">
-              <button
-                className="toggle-sidebar"
-                onClick={() => setShowConversations(!showConversations)}
-              >
-                {showConversations ? <ArrowLeft size={20} /> : <Clock size={20} />}
-              </button>
               <h1>Legal Assistant</h1>
             </div>
           </div>
@@ -426,11 +420,6 @@ const handleSendMessage = async () => {
                 >
                   <Send size={20} />
                 </button>
-              </div>
-              <div className="ai-input-footer">
-                <span className="ai-input-hint">
-                  Press Enter to send, Shift+Enter for new line
-                </span>
               </div>
             </form>
           </div>

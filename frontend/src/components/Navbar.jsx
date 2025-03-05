@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Scale } from "lucide-react";
 import "../assets/css/Navbar.css";
-import logo from "../assets/images/ai-ethic.png"; // Adjust the path if needed
 
 const Navbar = () => {
   return (

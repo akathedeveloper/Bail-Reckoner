@@ -15,6 +15,8 @@ import FamilyNotificationPage from "./pages/FamilyNotifyPage";
 import DocManage from "./components/DocManage";
 import JudgeCaseList from "./components/JudgeCaseList";
 import ChatBot from "./components/Chatbot";
+import Calendar from "./components/Calender";
+import LegalReport from "./components/LegalReport";
 
 const App = () => {
   return (
@@ -30,6 +32,8 @@ const App = () => {
           <Route path="/judge-case-list" element={<JudgeCaseList />} />
           {/* Updated routes to match login navigation */}
           <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/legal-report" element={<LegalReport />} />
+          <Route path="/calender" element={<Calendar />} />
           <Route path="/chatbot" element={<ChatBot />} />
           <Route path="/dashboard/judge" element={<DashboardPage />} />
           <Route path="/dashboard/legal-aid" element={<DashboardPage />} />
