@@ -43,7 +43,18 @@ export default function JudgeCaseList() {
         .from("cases")
         .select("*")
         .eq("judgeAssigned", userEmail)
-        .order("severity", { ascending: true });
+        // Define custom order: petty < minor < moderate < serious
+      const severityOrder = {
+        "petty": 1,
+        "minor": 2,
+        "moderate": 3,
+        "serious": 4
+      };
+      // Sort so that the most harming (serious) appears on top
+      const sortedData = data.sort((a, b) => 
+        severityOrder[b.severity.toLowerCase()] - severityOrder[a.severity.toLowerCase()]
+      );
+      setCases(sortedData);
       if (error) throw error;
       setCases(data || []);
     } catch (error) {

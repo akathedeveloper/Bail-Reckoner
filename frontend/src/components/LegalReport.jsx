@@ -115,13 +115,13 @@ export default function LegalReport() {
               Legal Case Reports
             </h1>
             <div className="rep-search-container">
-              <Search className="search-icon" />
+              <Search className="rep-search-icon" />
               <input
                 type="text"
                 placeholder="Search cases by ID, severity, or offense..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="search-input"
+                className="rep-search-input"
               />
             </div>
           </div>
@@ -137,11 +137,11 @@ export default function LegalReport() {
             <div className="empty-state">
               <Gavel size={48} />
               <p>No cases found</p>
-              {searchQuery && <p className="search-note">Try a different search term</p>}
+              {searchQuery && <p className="rep-search-note">Try a different search term</p>}
             </div>
           ) : (
             filteredCases.map((caseItem) => (
-              <div key={caseItem.id} className="case-card">
+              <div key={caseItem.id} className="rep-case-card">
                 <div 
                   className="case-header"
                   onClick={() => toggleCaseExpand(caseItem.id)}
