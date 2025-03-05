@@ -17,7 +17,7 @@ const JudgeDashboard = () => {
           <h2>Legal Reports</h2>
           <hr></hr>
           <p>Access detailed legal reports and case files.</p>
-          <Link to="/legal-reports" className="dashboard-link">
+          <Link to="/legal-report" className="dashboard-link">
             Go to Legal Reports
           </Link>
         </div>
