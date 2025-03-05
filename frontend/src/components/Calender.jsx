@@ -196,7 +196,7 @@ export default function Calendar() {
                   className="day-event"
                   onClick={() => setSelectedEvent(caseItem)}
                 >
-                  <div className="event-title">Case {caseItem.id}</div>
+                  <div className="event-title" style={{fontWeight:600}}>Case {caseItem.id}</div>
                   <div className="event-details">
                     <span>{caseItem.legalAid ? caseItem.legalAid : "No legal aid"}</span>
                   </div>

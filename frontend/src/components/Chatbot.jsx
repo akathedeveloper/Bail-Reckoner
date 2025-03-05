@@ -349,11 +349,6 @@ const handleSendMessage = async () => {
           </div>
         </div>
         <div className="ai-chat-main">
-          <div className="ai-chat-header">
-            <div className="header-left">
-              <h1>Legal Assistant</h1>
-            </div>
-          </div>
           <div className="ai-chat-messages">
             {messages.map((message, index) => (
               <div
