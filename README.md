@@ -15,3 +15,4 @@
 - Post-Bail Compliance Tracker – Ensures defendants follow court conditions.
 - Notification System – Sends real-time SMS/email updates for hearing dates.
 - Court Reminder System – Notifies lawyers and defendants of upcoming court sessions.
+# bail_hack

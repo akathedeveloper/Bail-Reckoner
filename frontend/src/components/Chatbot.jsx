@@ -184,12 +184,7 @@ export default function ChatBot() {
     }
   };
 
-// RapidAPI constants for GPT-4 endpoint
-const RAPID_API_KEY = "5389ccde0bmshe2d75f6589a7b8cp14764bjsn2f728f9e89d7";
-const RAPID_API_HOST = "cheapest-gpt-4-turbo-gpt-4-vision-chatgpt-openai-ai-api.p.rapidapi.com";
-const RAPID_API_URL = "https://cheapest-gpt-4-turbo-gpt-4-vision-chatgpt-openai-ai-api.p.rapidapi.com/v1/chat/completions";
-
-const handleSendMessage = async () => {
+  const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
     let conversationId = currentConversationId;
     if (!conversationId) {
@@ -207,37 +202,15 @@ const handleSendMessage = async () => {
     setIsLoading(true);
   
     try {
-      console.log("Sending request to RapidAPI with payload:", {
-        messages: [{ role: "user", content: userMessage.content }],
-        model: "gpt-4o",
-        max_tokens: 100,
-        temperature: 0.9,
-      });
-  
-      const response = await fetch(RAPID_API_URL, {
+      // Call your server's Gemini API endpoint (legal-query)
+      const response = await fetch("http://localhost:3000/legal-query", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-rapidapi-key": RAPID_API_KEY,
-          "x-rapidapi-host": RAPID_API_HOST,
-        },
-        body: JSON.stringify({
-          messages: [{ role: "user", content: userMessage.content }],
-          model: "gpt-4o",
-          max_tokens: 100,
-          temperature: 0.9,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: userMessage.content }),
       });
-      console.log("RapidAPI response status:", response.status);
       const data = await response.json();
-      console.log("RapidAPI response data:", data);
-  
-      // Extract the assistant's response from the choices array
-      const assistantMessageContent =
-        data?.choices && data.choices.length > 0
-          ? data.choices[0].message.content
-          : "Sorry, I didn't get a response.";
-  
+      // data is expected to have an "Answer" key with the assistant's response.
+      const assistantMessageContent = data.Answer || "Sorry, I didn't get a response.";
       const assistantMessage = {
         role: "assistant",
         content: assistantMessageContent,

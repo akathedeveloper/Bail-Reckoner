@@ -1,51 +1,58 @@
 import { Link } from "react-router-dom";
+import {
+  FaRobot,
+  FaBell,
+  FaFileAlt,
+  FaGavel,
+  FaCalendarAlt,
+} from "react-icons/fa"; // Importing icons from react-icons
+import styles from "../assets/css/dashboard.module.css"; // Importing the CSS module for styling
 
 const Dashboard = () => {
   return (
-    <div className="dashboard">
-      <h1 style={{color: "#34d399"}}>Undertrial Prisoner Dashboard</h1>
-      <div className="dashboard-sections">
-        <div className="dashboard-section document-management">
-          <h2>Easy Document Management</h2>
-          <hr></hr>
-          <p>Manage and upload your documents easily.</p>
-          <Link to="/doc-manager" className="dashboard-link">
+    <div className={styles.dashboard}>
+      <header className={styles.dashboardHeader}>
+        <h1>Undertrial Prisoner Dashboard</h1>
+        <div className={styles.notifications}>
+          <Link to="/family" className={styles.notificationIcon}>
+            <FaBell size={25} />
+          </Link>
+          <Link to="/calendar" className={styles.notificationIcon}>
+            <FaCalendarAlt size={25} />
+          </Link>
+        </div>
+      </header>
+      <div className={styles.dashboardSections}>
+        <div className={styles.dashboardSection}>
+          <FaFileAlt size={50} color="#F5A623" />
+          <Link to="/doc-manager" className={styles.dashboardLink}>
             Go to Document Management
           </Link>
         </div>
-        <div className="dashboard-section legal-aid-request">
-          <h2>Submit your cases</h2>
-          <hr></hr>
-          <p>Simple and fast case registration</p>
-          <Link to="/cases" className="dashboard-link">
-            Go to Case from submission
+        <div className={styles.dashboardSection}>
+          <FaGavel size={50} color="#F5A623" />
+          <Link to="/cases" className={styles.dashboardLink}>
+            Submit your cases
           </Link>
         </div>
-        <div className="dashboard-section family-notifications">
-          <h2>Family Notifications</h2>
-          <hr></hr>
-          <p>Notify your family about your case status.</p>
-          <Link to="/family" className="dashboard-link">
-            Go to Family Notifications
+
+        <div className={styles.dashboardSection}>
+          <FaFileAlt size={50} color="#F5A623" />
+          <Link to="/resource" className={styles.dashboardLink}>
+            Go to Resource Center
           </Link>
         </div>
-        <div className="dashboard-section ai-chatbot">
-          <h2>AI Chatbot</h2>
-          <hr></hr>
-          <p>Ask your legal questions to our AI chatbot.</p>
-          <Link to="/chatbot" className="dashboard-link">
-            Go to AI Chatbot
-          </Link>
-        </div>
-        <div className="dashboard-section schedule-management">
-          <h2>Working Calendar</h2>
-          <hr></hr>
-          <p>Manage your court schedule and hearings.</p>
-          <Link to="/calender" className="dashboard-link">
-            Go to Schedule Management
+        <div className={styles.dashboardSection}>
+          <FaFileAlt size={50} color="#F5A623" />
+          <Link to="/timeline" className={styles.dashboardLink}>
+            View your Case timeline
           </Link>
         </div>
       </div>
+      <Link to="/chatbot" className={styles.chatbotButton}>
+        <FaRobot size={30} />
+        <span>Chatbot</span>
+      </Link>
     </div>
   );
 };

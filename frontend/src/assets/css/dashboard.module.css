@@ -1,0 +1,85 @@
+.dashboard {
+  position: relative;
+  padding: 20px;
+  /* font-family: Arial, sans-serif; */
+}
+
+.dashboardHeader {
+  display: flex;
+  justify-content: center; /* Center the header */
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative; /* Position relative to contain the notification icons */
+}
+
+.dashboardHeader h1 {
+  color: #F5A623;
+}
+
+.notifications {
+  position: absolute;
+  right: 0; /* Position the notification icons to the right */
+  display: flex;
+  gap: 15px;
+}
+
+.notificationIcon {
+  color: #F5A623;
+  text-decoration: none;
+}
+
+.dashboardSections {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center; /* Center the sections */
+}
+
+.dashboardSection {
+  flex: 1 1 30%;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: #111827;
+  transition: transform 0.3s;
+}
+
+.dashboardSection:hover {
+  transform: scale(1.05);
+}
+
+.dashboardSection h2 {
+  color: #F5A623;
+}
+
+.dashboardLink {
+  display: block;
+  margin-top: 10px;
+  color: #F5A623;
+  text-decoration: none;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.chatbotButton {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #F5A623;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.chatbotButton:hover {
+  background-color: #d18f12;
+}

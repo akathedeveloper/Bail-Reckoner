@@ -1,40 +1,35 @@
 import { Link } from "react-router-dom";
+import { FaUsers, FaBriefcase, FaBook, FaCalendarAlt } from "react-icons/fa"; // Importing icons from react-icons
+import styles from "../assets/css/legaldashboard.module.css"; // Importing the CSS module for styling
 
 const LegalAidDashboard = () => {
   return (
-    <div className="dashboard">
-      <h1 style={{color: "#34d399"}}>Legal Aid Provider Dashboard</h1>
-      <div className="dashboard-sections">
-        <div className="dashboard-section client-requests">
-          <h2>Client Management</h2>
-          <hr></hr>
-          <p>Review and manage legal aid requests from clients.</p>
-          <Link to="/client-requests" className="dashboard-link">
-            Go to Client Requests
+    <div className={styles.dashboard}>
+      <header className={styles.dashboardHeader}>
+        <h1>Legal Aid Provider Dashboard</h1>
+        <div className={styles.notifications}>
+          <Link to="/calendar" className={styles.notificationIcon}>
+            <FaCalendarAlt size={25} />
           </Link>
         </div>
-        <div className="dashboard-section case-management">
-          <h2>Case Management</h2>
-          <hr></hr>
-          <p>Organize and manage your assigned cases.</p>
-          <Link to="/case-requests" className="dashboard-link">
-            Go to Case Management
+      </header>
+      <div className={styles.dashboardSections}>
+        <div className={styles.dashboardSection}>
+          <FaUsers size={50} color="#4A90E2" />
+          <Link to="/client-requests" className={styles.dashboardLink}>
+            Client Management
           </Link>
         </div>
-        <div className="dashboard-section resource-center">
-          <h2>Resource Center</h2>
-          <hr></hr>
-          <p>Access legal resources and guidelines to assist clients.</p>
-          <Link to="/resource-center" className="dashboard-link">
-            Go to Resource Center
+        <div className={styles.dashboardSection}>
+          <FaBriefcase size={50} color="#4A90E2" />
+          <Link to="/case-requests" className={styles.dashboardLink}>
+            Case Management
           </Link>
         </div>
-        <div className="dashboard-section schedule-management">
-          <h2>Working Calendar</h2>
-          <hr></hr>
-          <p>Manage your court schedule and hearings.</p>
-          <Link to="/calender" className="dashboard-link">
-            Go to Schedule Management
+        <div className={styles.dashboardSection}>
+          <FaBook size={50} color="#4A90E2" />
+          <Link to="/resource" className={styles.dashboardLink}>
+            Resource Center
           </Link>
         </div>
       </div>
