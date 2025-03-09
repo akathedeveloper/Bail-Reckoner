@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-const API_URL = "http://localhost:3000"; // Ensure this is correct
+const API_URL = "http://localhost:5000"; // Ensure this is correct
 
 export const useAuthStore = create((set) => ({
   user: null,

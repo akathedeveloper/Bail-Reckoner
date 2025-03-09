@@ -22,28 +22,36 @@ const generationConfig = {
   maxOutputTokens: 8192,
   responseMimeType: "text/plain",
 };
-
 app.post("/legal-query", async (req, res) => {
   try {
-    const { question } = req.body;
+    const { question, language = "english" } = req.body; // Default to English
     if (!question) {
       return res.status(400).json({ error: "Question is required." });
     }
+
+    // Validate language
+    const supportedLanguages = ["english", "hindi"];
+    const selectedLanguage = supportedLanguages.includes(language.toLowerCase())
+      ? language.toLowerCase()
+      : "english";
+
     const prompt = `You are Nyaya Mitra ChatBot, a highly knowledgeable legal AI assistant specializing in Indian law.
 - Respond strictly in **valid JSON format** without any extra text.
 - Your response must be in **plain text** with **no special characters, markdown, or bullet points**.
+- Respond in **${selectedLanguage}** language only.
 - Ensure **Nyaya Mitra ChatBot** is naturally mentioned in the response.
 
 JSON FORMAT:
 {
   "Question": "${question}",
-  "Answer": "Provide a structured and legally accurate response in simple text format. No special symbols, no asterisks, no markdown."
+  "Answer": "Provide a structured and legally accurate response in simple text format in ${selectedLanguage}. No special symbols, no asterisks, no markdown."
 }`;
 
     const chatSession = model.startChat({ generationConfig });
     const result = await chatSession.sendMessage(prompt);
     let responseText = result.response.text().trim();
     console.log("Full Gemini API response text:", responseText);
+
     let jsonResponse;
     try {
       jsonResponse = JSON.parse(responseText);
@@ -201,6 +209,52 @@ app.post("/find-similar-cases", async (req, res) => {
   } catch (error) {
     console.error("Error fetching similar cases:", error);
     res.status(500).json({ error: "Failed to retrieve similar cases." });
+  }
+});
+
+app.post("/analyze-bail", async (req, res) => {
+  try {
+    const { caseDescription, sections } = req.body;
+    if (!caseDescription || !sections || !Array.isArray(sections)) {
+      return res.status(400).json({ error: "Invalid input format" });
+    }
+
+    const chatSession = model.startChat({
+      generationConfig,
+      history: [],
+    });
+
+    const prompt = `
+      Analyze the following legal case and determine if bail should be granted. Consider factors like legal precedents, severity of the offense, the nature of the crime (bailable or non-bailable), the accused’s past record, flight risk, and potential harm to society. 
+      
+      **Case Description:** ${caseDescription}
+      **Sections:** ${sections.join(", ")}
+      
+      Provide the response strictly in this JSON format:
+      {
+        "conclusion": {
+          "bailDecision": "granted/denied",
+          "reasoning": "Concise, well-structured, and legally sound reasoning."
+        }
+      }
+    `;
+
+    const result = await chatSession.sendMessage(prompt);
+    const responseText =
+      result.response.candidates[0]?.content?.parts[0]?.text || "";
+
+    const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) {
+      throw new Error("Invalid JSON response from AI");
+    }
+
+    const jsonResponse = JSON.parse(jsonMatch[0]);
+    res.json(jsonResponse);
+  } catch (error) {
+    console.error("Error:", error.message);
+    res
+      .status(500)
+      .json({ error: "Internal Server Error", details: error.message });
   }
 });
 
