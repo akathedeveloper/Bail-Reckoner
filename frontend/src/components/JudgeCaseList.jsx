@@ -23,7 +23,11 @@ export default function JudgeCaseList() {
   const [courtFeedback, setCourtFeedback] = useState({});
   const [similarCases, setSimilarCases] = useState(null);
   const [showSimilarCasesModal, setShowSimilarCasesModal] = useState(false);
-  // New loading states for each action
+  // New state for bail analysis
+  const [bailAnalysis, setBailAnalysis] = useState(null);
+  const [showBailModal, setShowBailModal] = useState(false);
+  const [fetchingBail, setFetchingBail] = useState({});
+  // Existing states
   const [fetchingSimilar, setFetchingSimilar] = useState({});
   const [submittingFeedback, setSubmittingFeedback] = useState({});
   const [savingTrialDate, setSavingTrialDate] = useState({});
@@ -77,7 +81,7 @@ export default function JudgeCaseList() {
 
       alert("Court feedback submitted successfully!");
 
-      const response = await fetch("http://localhost:3000/send-feedback", {
+      const response = await fetch("http://localhost:5000/send-feedback", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -109,7 +113,7 @@ export default function JudgeCaseList() {
     }
     setFetchingSimilar({ ...fetchingSimilar, [caseId]: true });
     try {
-      const response = await fetch("http://localhost:3000/find-similar-cases", {
+      const response = await fetch("http://localhost:5000/find-similar-cases", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ caseDetails: caseDescription }),
@@ -127,6 +131,34 @@ export default function JudgeCaseList() {
       alert("Failed to fetch similar cases.");
     } finally {
       setFetchingSimilar({ ...fetchingSimilar, [caseId]: false });
+    }
+  };
+
+  // New bail analysis handler
+  const handleBailAnalysis = async (caseId) => {
+    const caseItem = cases.find((c) => c.id === caseId);
+    if (!caseItem) return;
+    setFetchingBail({ ...fetchingBail, [caseId]: true });
+    try {
+      const response = await fetch("http://localhost:5000/analyze-bail", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          caseDescription: caseItem.caseDescription,
+          sections: [caseItem.offenseNature], // Assuming offenseNature as section
+        }),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to analyze bail");
+      }
+      const bailData = await response.json();
+      setBailAnalysis(bailData);
+      setShowBailModal(true);
+    } catch (error) {
+      console.error("Error analyzing bail:", error);
+      alert("Failed to analyze bail status");
+    } finally {
+      setFetchingBail({ ...fetchingBail, [caseId]: false });
     }
   };
 
@@ -185,6 +217,41 @@ export default function JudgeCaseList() {
               )}
             </tbody>
           </table>
+        </div>
+      </div>
+    );
+  };
+
+  // New bail analysis modal
+  const renderBailAnalysisModal = () => {
+    if (!showBailModal || !bailAnalysis) return null;
+    return (
+      <div
+        className="similar-cases-modal-backdrop"
+        onClick={() => setShowBailModal(false)}
+      >
+        <div
+          className="similar-cases-modal"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="similar-cases-modal-header">
+            <h3>Bail Analysis</h3>
+            <button
+              className="similar-cases-modal-close"
+              onClick={() => setShowBailModal(false)}
+            >
+              <X size={20} />
+            </button>
+          </div>
+          <div className="bail-analysis-content">
+            <p>
+              <strong>Bail Decision:</strong>{" "}
+              {bailAnalysis.conclusion.bailDecision}
+            </p>
+            <p>
+              <strong>Reasoning:</strong> {bailAnalysis.conclusion.reasoning}
+            </p>
+          </div>
         </div>
       </div>
     );
@@ -263,8 +330,7 @@ export default function JudgeCaseList() {
       localStorage.setItem("selected_prisoner", familyEmail);
       localStorage.setItem("selected_aid", legalAid);
 
-
-      const response = await fetch("http://localhost:3000/send-trialdate", {
+      const response = await fetch("http://localhost:5000/send-trialdate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -458,6 +524,20 @@ export default function JudgeCaseList() {
                             ? "Fetching..."
                             : "Fetch Similar Cases"}
                         </button>
+                        {/* New bail analysis button */}
+                        <button
+                          className="judge-analyze-bail-button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleBailAnalysis(caseItem.id);
+                          }}
+                          disabled={fetchingBail[caseItem.id]}
+                          aria-label={`Analyze bail for CASE-${caseItem.id}`}
+                        >
+                          {fetchingBail[caseItem.id]
+                            ? "Analyzing..."
+                            : "Analyze Bail"}
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -538,6 +618,7 @@ export default function JudgeCaseList() {
         </div>
       </div>
       {renderSimilarCasesModal()}
+      {renderBailAnalysisModal()}
     </div>
   );
 }

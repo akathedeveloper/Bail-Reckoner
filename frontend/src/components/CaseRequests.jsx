@@ -100,7 +100,7 @@ const RequestsList = () => {
       if (notifError) throw notifError;
 
       // 5. Trigger email notification via backend endpoint
-      const response = await fetch("http://localhost:3000/send-notification", {
+      const response = await fetch("http://localhost:5000/send-notification", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
